@@ -1,0 +1,51 @@
+{
+    "name": "noardcode/laravel-tables",
+    "description": "This Laravel package provides a convenient way to display collections in html5 tables",
+    "type": "library",
+    "keywords": [
+        "noardcode",
+        "laravel-tables",
+        "laravel",
+        "tables",
+        "collections"
+    ],
+    "homepage": "https://github.com/noardcode/laravel-tables",
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "^7.0",
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1.5"
+    },
+    "authors": [
+        {
+            "name": "Roy Voetman",
+            "email": "roy@noardcode.nl"
+        },
+        {
+            "name": "Jesse Alkema",
+            "email": "jesse@noardcode.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Noardcode\\Tables\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Noardcode\\Tables\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Noardcode\\Tables\\TablesServiceProvider"
+            ]
+        }
+    }
+}
