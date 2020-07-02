@@ -21,6 +21,11 @@ class Table extends Component
     private bool $isTrash;
 
     /**
+     * @var string|string[]|null
+     */
+    private ?string $baseRouteName;
+
+    /**
      * Create a new component instance.
      *
      * @param  \Noardcode\Tables\Collections\BaseCollection  $collection
@@ -100,85 +105,73 @@ class Table extends Component
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function parseRowActionButtons($item): Renderable
+    public function parseRowActionButtons(Model $item): Renderable
     {
-        $baseRouteName = preg_replace("/[a-z0-9]+$/i", '', request()->route()->getName());
-        $baseAction = [
-            'title' => null,
-            'btn_color' => null,
-            'icon' => null,
-            'route' => null,
-        ];
+        $this->baseRouteName = preg_replace("/[a-z0-9]+$/i", '', request()->route()->getName());
         $actions = [];
 
         foreach ($this->collection->tableRowActions as $name => $options) {
             switch ($name) {
                 case ('delete'):
                     if (!$this->isTrash) {
-                        $actions[$name] = ([
-                                'title' => 'general.Delete',
-                                'btn_color' => 'danger',
-                                'icon' => 'trash',
-                                'route' => route(
-                                    $baseRouteName . 'destroy',
-                                    request()->route()->parameters() + [$item->id]
-                                ),
-                            ] + $baseAction);
+                        $actions[$name] = $this->getRowActions(
+                            $item,
+                            $options,
+                            'general.Delete',
+                            'danger',
+                            'trash',
+                            'destroy'
+                        );
                     }
                     break;
                 case ('restore'):
                     if ($this->isTrash) {
-                        $actions[$name] = ([
-                                'title' => 'general.Restore',
-                                'btn_color' => 'success',
-                                'icon' => 'trash-restore',
-                                'route' => route(
-                                    $baseRouteName . 'restore',
-                                    request()->route()->parameters() + [$item->id]
-                                ),
-                            ] + $baseAction);
+                        $actions[$name] = $this->getRowActions(
+                            $item,
+                            $options,
+                            'general.Restore',
+                            'success',
+                            'trash-restore',
+                            'restore'
+                        );
                     }
                     break;
                 case ('force-delete'):
                     if ($this->isTrash) {
-                        $actions[$name] = ([
-                                'title' => 'general.Force delete',
-                                'btn_color' => 'danger',
-                                'icon' => 'trash',
-                                'route' => route(
-                                    $baseRouteName . 'force-delete',
-                                    request()->route()->parameters() + [$item->id]
-                                ),
-                            ] + $baseAction);
+                        $actions[$name] = $this->getRowActions(
+                            $item,
+                            $options,
+                            'general.Force delete',
+                            'danger',
+                            'trash',
+                            'force-delete'
+                        );
                     }
                     break;
                 case ('edit'):
-                    $actions[$name] = ([
-                            'title' => 'general.Edit',
-                            'icon' => 'pencil-alt',
-                            'route' => route(
-                                $baseRouteName . 'edit',
-                                request()->route()->parameters() + [$item->id]
-                            ),
-                        ] + $baseAction);
+                    $actions[$name] = $this->getRowActions(
+                        $item,
+                        $options,
+                        'general.Edit',
+                        'danger',
+                        'pencil-alt',
+                        'edit'
+                    );
                     break;
                 case ('show'):
-                    $actions[$name] = ([
-                            'title' => 'general.Details',
-                            'icon' => 'eye',
-                            'route' => route(
-                                $baseRouteName . 'show',
-                                request()->route()->parameters() + [$item->id]
-                            ),
-                        ] + $baseAction);
+                    $actions[$name] = $this->getRowActions(
+                        $item,
+                        $options,
+                        'general.Details',
+                        null,
+                        'eye',
+                        'show'
+                    );
                     break;
                 default:
-                    $actions[$name] = ([
-                            'route' => route(
-                                $options['route'],
-                                request()->route()->parameters() + [$item->id]
-                            )
-                        ] + $options + $baseAction);
+                    $actions[$name] = [
+                        'route' => route($options[ 'route' ], $this->getRouteParams($item))
+                    ] + array_merge(['title' => null, 'btn_color' => null, 'icon' => null], $options);
             }
         }
 
@@ -223,5 +216,41 @@ class Table extends Component
         }
 
         return $key;
+    }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model  $item
+     * @param  array  $options
+     * @param  string|null  $title
+     * @param  string|null  $btnColor
+     * @param  string|null  $icon
+     * @param  string|null  $route
+     *
+     * @return array
+     */
+    private function getRowActions(
+        Model $item,
+        array $options,
+        string $title = null,
+        string $btnColor = null,
+        string $icon = null,
+        string $route = null
+    ): array {
+        return $options + [
+            'title'     => $title,
+            'btn_color' => $btnColor,
+            'icon'      => $icon,
+            'route'     => route($this->baseRouteName.$route, $this->getRouteParams($item)),
+        ];
+    }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model  $item
+     *
+     * @return array|null
+     */
+    private function getRouteParams(Model $item): ?array
+    {
+        return request()->route()->parameters() + [$item->getKey()];
     }
 }
