@@ -2,6 +2,7 @@
 
 namespace Noardcode\Tables;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Noardcode\Tables\Components\Table;
 
@@ -23,7 +24,7 @@ class TablesServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'noardcode');
 
-        $this->loadViewComponentsAs('noardcode', [Table::class]);
+        Blade::component('noardcode-tables', Table::class);
     }
 
     /**

@@ -111,6 +111,8 @@ class Table extends Component
         $actions = [];
 
         foreach ($this->collection->tableRowActions as $name => $options) {
+            $options = is_bool($options) ? [] : $options;
+
             switch ($name) {
                 case ('delete'):
                     if (!$this->isTrash) {
