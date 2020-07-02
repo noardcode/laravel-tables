@@ -3,17 +3,16 @@
 namespace Noardcode\Tables\Components;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
-use Noardcode\Tables\Collections\BaseCollection;
+use Noardcode\Tables\Collections\Collection;
 
 class Table extends Component
 {
     /**
-     * @var \Noardcode\Tables\Collections\BaseCollection
+     * @var \Noardcode\Tables\Collections\Collection
      */
-    private BaseCollection $collection;
+    private Collection $collection;
 
     /**
      * @var bool
@@ -26,15 +25,33 @@ class Table extends Component
     private ?string $baseRouteName;
 
     /**
-     * Create a new component instance.
+     * @var array
+     */
+    private array $columns;
+
+    /**
+     * @var array
+     */
+    private array $tableActions;
+
+    /**
+     * @var array
+     */
+    private array $rowActions;
+
+    /**
+     * Table constructor.
      *
-     * @param  \Noardcode\Tables\Collections\BaseCollection  $collection
+     * @param  \Noardcode\Tables\Collections\Collection  $collection
      * @param  bool  $isTrash
      */
-    public function __construct(BaseCollection $collection, bool $isTrash = false)
+    public function __construct(Collection $collection, bool $isTrash = false)
     {
         $this->collection = $collection;
         $this->isTrash = $isTrash;
+        $this->columns = $this->collection->getTableColumns();
+        $this->tableActions = $this->collection->getTableActions();
+        $this->rowActions = $this->collection->getRowActions();
     }
 
     /**
@@ -59,22 +76,22 @@ class Table extends Component
     {
         $value = $this->getCellValue($item, $key);
 
-        if (empty($this->collection->tableColumns[$key]['type'])) {
+        if (empty($this->columns[$key]['type'])) {
             return $value;
         }
 
-        switch ($this->collection->tableColumns[$key]['type']) {
+        switch ($this->columns[$key]['type']) {
             case ('route'):
                 return view('noardcode::cell.link')
                     ->with('link', route(
-                        $this->collection->tableColumns[$key]['route'],
+                        $this->columns[$key]['route'],
                         request()->route()->parameters() + [$item->id]
                     ))
                     ->with('value', $value);
                 break;
             case ('date'):
-                return $value->format(!empty($this->collection->tableColumns[$key]['date_format']) ?
-                    $this->collection->tableColumns[$key]['date_format'] : 'd-m-Y H:i');
+                return $value->format(!empty($this->columns[$key]['date_format']) ?
+                    $this->columns[$key]['date_format'] : 'd-m-Y H:i');
                 break;
             case ('boolean'):
                 return view('noardcode::cell.boolean')
@@ -96,7 +113,7 @@ class Table extends Component
     public function parseActionButtons(): Renderable
     {
         return view('noardcode::cell.table-actions')
-            ->with('tableActions', $this->collection->tableActions)
+            ->with('tableActions', $this->tableActions)
             ->with('trash', !$this->isTrash);
     }
 
@@ -110,7 +127,7 @@ class Table extends Component
         $this->baseRouteName = preg_replace("/[a-z0-9]+$/i", '', request()->route()->getName());
         $actions = [];
 
-        foreach ($this->collection->tableRowActions as $name => $options) {
+        foreach ($this->rowActions as $name => $options) {
             $options = is_bool($options) ? [] : $options;
 
             switch ($name) {

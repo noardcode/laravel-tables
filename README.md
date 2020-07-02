@@ -11,6 +11,31 @@ This Laravel package provides a convenient way to display collections in html5 t
 composer require noardcode/laravel-tables
 ```
 
+### Javascript dependencies
+
+```bash
+npm install boostrap
+```
+
+```bash
+npm install --save @fortawesome/fontawesome-free
+```
+
+### Publish assets
+
+Publish the required assets (scss, js). 
+These assets should be added to your css and js build.
+
+```bash
+php artisan vendor:publish --tag="assets"
+```
+
+### Publish translations (optional)
+
+```bash
+php artisan vendor:publish --tag="lang"
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

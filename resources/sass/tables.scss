@@ -1,0 +1,18 @@
+.btn-group > form:not(:last-child):not(.dropdown-toggle) > .btn, .btn-group > form:not(:last-child) > .btn-group > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group > form:not(:first-child) > .btn, .btn-group > form:not(:first-child) > .btn-group > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group > form:not(:first-child) > .btn, .btn-group > form:not(:first-child) > .btn-group {
+    margin-left: -1px;
+}
+
+.btn-group > form .btn {
+    position: relative;
+    flex: 1 1 auto;
+}

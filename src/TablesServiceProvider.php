@@ -19,10 +19,16 @@ class TablesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/laravel-tables.php' => config_path('laravel-tables.php'),
-        ]);
+            __DIR__.'/../resources/sass' => resource_path('sass/vendor/noardcode'),
+        ], 'assets');
+
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/noardcode'),
+        ], 'lang');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'noardcode');
+
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'noardcode');
 
         Blade::component('noardcode-tables', Table::class);
     }
@@ -32,6 +38,6 @@ class TablesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-tables.php', 'laravel-tables');
+        //
     }
 }

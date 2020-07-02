@@ -1,10 +1,10 @@
 <table class="table table-hover mb-0">
     <thead>
         <tr>
-            @foreach ($collection->tableColumns as $column)
+            @foreach ($collection->getTableColumns() as $column)
                 <th>{{ $column['title'] }}</th>
             @endforeach
-            @if(!empty($collection->tableRowActions) || !empty($collection->tableActions))
+            @if(!empty($collection->getRowActions()) || !empty($collection->getTableActions()))
                 <th class="text-right">
                     {{ $parseActionButtons }}
                 </th>
@@ -15,7 +15,7 @@
     <tbody>
         @forelse($collection as $item)
             <tr>
-                @foreach($collection->tableColumns as $key => $column)
+                @foreach($collection->getTableColumns() as $key => $column)
                     <td>
                         {!! $formatCell($item, $key, $column) !!}
                         @if($key == 'button')
@@ -25,7 +25,7 @@
                         @endif
                     </td>
                 @endforeach
-                @if(!empty($collection->tableRowActions))
+                @if(!empty($collection->getRowActions()))
                     <td class="text-right">
                         {!! $parseRowActionButtons($item) !!}
                     </td>
@@ -33,8 +33,8 @@
             </tr>
         @empty
             <tr>
-                <td colspan="{{ count($collection->tableColumns) + 1 }}">
-                    {{ __('general.No items found.') }}
+                <td colspan="{{ count($collection->getTableColumns()) + 1 }}">
+                    {{ __("noardcode::laravel-tables.No items found.") }}
                 </td>
             </tr>
         @endforelse
