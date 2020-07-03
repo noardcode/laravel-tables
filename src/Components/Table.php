@@ -172,7 +172,7 @@ class Table extends Component
                         $item,
                         $options,
                         'general.Edit',
-                        'danger',
+                        null,
                         'pencil-alt',
                         'edit'
                     );
