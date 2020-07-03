@@ -1,5 +1,5 @@
 # Laravel Tables
-This Laravel package provides a convenient way to display collections in html5 tables.
+This Laravel package provides a convenient way to display eloquent collections in html5 tables.
 
 [![Latest Version](https://img.shields.io/packagist/v/noardcode/laravel-tables.svg?style=flat-square)](https://packagist.org/packages/noardcode/laravel-tables)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
