@@ -26,11 +26,17 @@ class TablesServiceProvider extends ServiceProvider
             __DIR__.'/../resources/lang' => resource_path('lang/vendor/noardcode'),
         ], 'lang');
 
+        $this->publishes([
+            __DIR__.'/../config/laravel-tables.php' => config_path('laravel-tables.php'),
+        ], 'config');
+
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'noardcode');
 
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'noardcode');
 
-        Blade::component('noardcode-tables', Table::class);
+        $prefix = config('laravel-tables.component-prefix');
+
+        Blade::component("{$prefix}-table", Table::class);
     }
 
     /**
@@ -38,6 +44,6 @@ class TablesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-tables.php', 'laravel-tables');
     }
 }

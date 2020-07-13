@@ -18,11 +18,6 @@
                 @foreach($collection->getTableColumns() as $key => $column)
                     <td>
                         {!! $formatCell($item, $key, $column) !!}
-                        @if($key == 'button')
-                            <a href="{{ route('admin.attractions.show', $item->id) }}">
-                                <button type="button" class="btn btn-va">Show</button>
-                            </a>
-                        @endif
                     </td>
                 @endforeach
                 @if(!empty($collection->getRowActions()))

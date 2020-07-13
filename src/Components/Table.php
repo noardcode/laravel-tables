@@ -136,7 +136,7 @@ class Table extends Component
                         $actions[$name] = $this->getRowActions(
                             $item,
                             $options,
-                            'general.Delete',
+                            __('noardcode::laravel-tables.Delete'),
                             'danger',
                             'trash',
                             'destroy'
@@ -148,7 +148,7 @@ class Table extends Component
                         $actions[$name] = $this->getRowActions(
                             $item,
                             $options,
-                            'general.Restore',
+                            __('noardcode::laravel-tables.Restore'),
                             'success',
                             'trash-restore',
                             'restore'
@@ -160,7 +160,7 @@ class Table extends Component
                         $actions[$name] = $this->getRowActions(
                             $item,
                             $options,
-                            'general.Force delete',
+                            __('noardcode::laravel-tables.Force delete'),
                             'danger',
                             'trash',
                             'force-delete'
@@ -171,7 +171,7 @@ class Table extends Component
                     $actions[$name] = $this->getRowActions(
                         $item,
                         $options,
-                        'general.Edit',
+                        __('noardcode::laravel-tables.Edit'),
                         null,
                         'pencil-alt',
                         'edit'
@@ -181,7 +181,7 @@ class Table extends Component
                     $actions[$name] = $this->getRowActions(
                         $item,
                         $options,
-                        'general.Details',
+                        __('noardcode::laravel-tables.Details'),
                         null,
                         'eye',
                         'show'
