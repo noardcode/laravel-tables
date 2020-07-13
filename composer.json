@@ -1,6 +1,6 @@
 {
     "name": "noardcode/laravel-tables",
-    "description": "This Laravel package provides a convenient way to display collections in html5 tables",
+    "description": "This Laravel package provides a convenient way to display eloquent collections in html5 tables",
     "type": "library",
     "keywords": [
         "noardcode",
