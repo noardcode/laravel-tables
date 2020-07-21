@@ -2,6 +2,7 @@
 
 namespace Noardcode\Tables\Components;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
@@ -10,9 +11,9 @@ use Noardcode\Tables\Collections\Collection;
 class Table extends Component
 {
     /**
-     * @var \Noardcode\Tables\Collections\Collection
+     * @var iterable
      */
-    private Collection $collection;
+    private iterable $collection;
 
     /**
      * @var bool
@@ -42,10 +43,10 @@ class Table extends Component
     /**
      * Table constructor.
      *
-     * @param  \Noardcode\Tables\Collections\Collection  $collection
-     * @param  bool  $isTrash
+     * @param iterable $collection
+     * @param bool $isTrash
      */
-    public function __construct(Collection $collection, bool $isTrash = false)
+    public function __construct(iterable $collection, bool $isTrash = false)
     {
         $this->collection = $collection;
         $this->isTrash = $isTrash;
@@ -67,8 +68,8 @@ class Table extends Component
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model  $item
-     * @param  string  $key
+     * @param \Illuminate\Database\Eloquent\Model $item
+     * @param string $key
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Database\Eloquent\Model|\Illuminate\View\View|mixed
      */
@@ -189,8 +190,8 @@ class Table extends Component
                     break;
                 default:
                     $actions[$name] = [
-                        'route' => route($options[ 'route' ], $this->getRouteParams($item))
-                    ] + array_merge(['title' => null, 'btn_color' => null, 'icon' => null], $options);
+                            'route' => route($options['route'], $this->getRouteParams($item))
+                        ] + array_merge(['title' => null, 'btn_color' => null, 'icon' => null], $options);
             }
         }
 
@@ -200,8 +201,8 @@ class Table extends Component
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model  $item
-     * @param  string  $key
+     * @param \Illuminate\Database\Eloquent\Model $item
+     * @param string $key
      *
      * @return \Illuminate\Database\Eloquent\Model|mixed
      */
@@ -223,7 +224,7 @@ class Table extends Component
     }
 
     /**
-     * @param  string  $key
+     * @param string $key
      *
      * @return string
      */
@@ -238,12 +239,12 @@ class Table extends Component
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model  $item
-     * @param  array  $options
-     * @param  string|null  $title
-     * @param  string|null  $btnColor
-     * @param  string|null  $icon
-     * @param  string|null  $route
+     * @param \Illuminate\Database\Eloquent\Model $item
+     * @param array $options
+     * @param string|null $title
+     * @param string|null $btnColor
+     * @param string|null $icon
+     * @param string|null $route
      *
      * @return array
      */
@@ -255,16 +256,21 @@ class Table extends Component
         string $icon = null,
         string $route = null
     ): array {
+        /** Check if custom route has been defined*/
+        if (!empty($options['route'])) {
+            $options['route'] = route($options['route'], $this->getRouteParams($item));
+        }
+
         return $options + [
-            'title'     => $title,
-            'btn_color' => $btnColor,
-            'icon'      => $icon,
-            'route'     => route($this->baseRouteName.$route, $this->getRouteParams($item)),
-        ];
+                'title' => $title,
+                'btn_color' => $btnColor,
+                'icon' => $icon,
+                'route' => route($this->baseRouteName . $route, $this->getRouteParams($item)),
+            ];
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model  $item
+     * @param \Illuminate\Database\Eloquent\Model $item
      *
      * @return array|null
      */
