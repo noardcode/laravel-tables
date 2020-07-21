@@ -35,3 +35,7 @@
         @endforelse
     </tbody>
 </table>
+
+@if(method_exists($collection, 'links'))
+    {{ $collection->links() }}
+@endif
