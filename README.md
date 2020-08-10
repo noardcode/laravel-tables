@@ -14,7 +14,7 @@ composer require noardcode/laravel-tables
 ### Javascript dependencies
 
 ```bash
-npm install boostrap
+npm install bootstrap
 ```
 
 ```bash
