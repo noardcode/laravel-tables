@@ -14,7 +14,7 @@
 
     <tbody>
         @forelse($collection as $item)
-            <tr>
+            <tr data-primary-key="{{ $item->getKey() }}">
                 @foreach($collection->getTableColumns() as $key => $column)
                     <td>
                         {!! $formatCell($item, $key, $column) !!}

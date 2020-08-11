@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-tables` will be documented in this file
 
+### 0.1.2 - 2020-08-11
+- Primary key of model available in table row
+- Added a trait for overruling default collection in model
+- Added `html` cell format type
+- Added `view` cell format type
+
 ### 0.1.1 - 2020-07-21
 - Added support for pagination
 - Resolve custom route default row actions

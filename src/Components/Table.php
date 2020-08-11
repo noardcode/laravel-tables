@@ -103,6 +103,16 @@ class Table extends Component
                     ->with('items', $value instanceof Collection ? $value : [$value])
                     ->with('key', $this->getRelationValueKey($key));
                 break;
+            case ('html'):
+                return view('noardcode::cell.html')
+                    ->with('value', $value)
+                    ->with('item', $item);
+                break;
+            case ('view'):
+                return view($this->columns[$key]['view'])
+                    ->with('value', $value)
+                    ->with('item', $item);
+                break;
             default:
                 return $value;
         }
