@@ -105,8 +105,7 @@ class Table extends Component
                 break;
             case ('html'):
                 return view('noardcode::cell.html')
-                    ->with('value', $value)
-                    ->with('item', $item);
+                    ->with('value', $value);
                 break;
             case ('view'):
                 return view($this->columns[$key]['view'])
