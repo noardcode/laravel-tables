@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-tables` will be documented in this file
 
+### 0.1.3 - 2020-09-07
+- Fixed building row action route when overwritten
+
 ### 0.1.2 - 2020-08-11
 - Primary key of model available in table row
 - Added a trait for overruling default collection in model
