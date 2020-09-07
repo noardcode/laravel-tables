@@ -274,7 +274,9 @@ class Table extends Component
                 'title' => $title,
                 'btn_color' => $btnColor,
                 'icon' => $icon,
-                'route' => route($this->baseRouteName . $route, $this->getRouteParams($item)),
+                'route' => empty($options['route'])
+                    ? route($this->baseRouteName . $route, $this->getRouteParams($item))
+                    : null,
             ];
     }
 
