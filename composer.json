@@ -12,7 +12,7 @@
     "homepage": "https://github.com/noardcode/laravel-tables",
     "license": "MIT",
     "require": {
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^7.0|^8.0",
         "php": "^7.4",
         "laravelcollective/html": "^6.1"
     },
