@@ -270,6 +270,14 @@ class Table extends Component
             $options['route'] = route($options['route'], $this->getRouteParams($item));
         }
 
+        /** Check if closure is set and action shoulf be enabled */
+        if(!empty($options['closure'])) {
+            $options['enabled'] = $options['closure']($item);
+            unset($options['closure']);
+        } else {
+            $options['enabled'] = true;
+        }
+
         return $options + [
                 'title' => $title,
                 'btn_color' => $btnColor,
