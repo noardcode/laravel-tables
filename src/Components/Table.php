@@ -191,9 +191,7 @@ class Table extends Component
                     );
                     break;
                 default:
-                    $actions[$name] = [
-                            'route' => route($options['route'], $this->getRouteParams($item))
-                        ] + array_merge(['title' => null, 'btn_color' => null, 'icon' => null], $options);
+                    $actions[$name] = $this->getRowActions($item, $options);
             }
         }
 
