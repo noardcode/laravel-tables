@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-tables` will be documented in this file
 
+### 0.1.7 - 2020-11-02
+- Fix for custom row actions
+
 ### 0.1.6 - 2020-11-02
 - Added support for sortable columns
 
