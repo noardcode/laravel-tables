@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-tables` will be documented in this file
 
+### 0.1.6 - 2020-11-02
+- Added support for sortable columns
+
 ### 0.1.5 - 2020-11-02
 - Optional closure for enabling/disabling row actions
 - Added model attribute name to table cell

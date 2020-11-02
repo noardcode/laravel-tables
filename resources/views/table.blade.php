@@ -5,6 +5,11 @@
                 <th data-column="{{ $key }}"
                     {!! !empty($column['class']) ? (' class="' . htmlspecialchars($column['class'] instanceof Closure ? $column['class'](null) : $column['class']) . '"') : '' !!}>
                     {{ $column['title'] }}
+                    @if(!empty($column['sortable']))
+                        <a href="{{ $getSortableRoute($collection->getSortableRoute(), $key) }}">
+                            <i class="fas fa-sort"></i>
+                        </a>
+                    @endif
                 </th>
             @endforeach
             @if(!empty($collection->getRowActions()) || !empty($collection->getTableActions()))

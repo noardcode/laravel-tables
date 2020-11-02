@@ -31,4 +31,12 @@ abstract class Collection extends EloquentCollection
     {
         return [];
     }
+
+    /**
+     * @return string
+     */
+    public function getSortableRoute(): ?string
+    {
+        return null;
+    }
 }

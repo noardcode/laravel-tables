@@ -2,7 +2,6 @@
 
 namespace Noardcode\Tables\Components;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
@@ -89,29 +88,23 @@ class Table extends Component
                         request()->route()->parameters() + [$item->id]
                     ))
                     ->with('value', $value);
-                break;
             case ('date'):
                 return $value->format(!empty($this->columns[$key]['date_format']) ?
                     $this->columns[$key]['date_format'] : 'd-m-Y H:i');
-                break;
             case ('boolean'):
                 return view('noardcode::cell.boolean')
                     ->with('bool', !!$value);
-                break;
             case ('badge'):
                 return view('noardcode::cell.badge')
                     ->with('items', $value instanceof Collection ? $value : [$value])
                     ->with('key', $this->getRelationValueKey($key));
-                break;
             case ('html'):
                 return view('noardcode::cell.html')
                     ->with('value', $value);
-                break;
             case ('view'):
                 return view($this->columns[$key]['view'])
                     ->with('value', $value)
                     ->with('item', $item);
-                break;
             default:
                 return $value;
         }
@@ -296,5 +289,10 @@ class Table extends Component
     private function getRouteParams(Model $item): ?array
     {
         return request()->route()->parameters() + [$item->getKey()];
+    }
+
+    public function getSortableRoute(string $routeName, string $column)
+    {
+        return route($routeName, request()->route()->parameters() + [$column]);
     }
 }
