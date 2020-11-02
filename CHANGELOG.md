@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-tables` will be documented in this file
 
+### 0.1.5 - 2020-11-02
+- Optional closure for enabling/disabling row actions
+- Added model attribute name to table cell
+- Added support for adding classes to cells (string|closure)
+- Changed title trash
+
+### 0.1.4 - 2020-09-14
+- Added support for laravel `^8.0`
+
 ### 0.1.3 - 2020-09-07
 - Fixed building row action route when overwritten
 

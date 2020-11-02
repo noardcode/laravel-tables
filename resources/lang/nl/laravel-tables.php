@@ -9,4 +9,5 @@ return [
     'Delete' => 'Verwijderen',
     'Restore' => 'Herstellen',
     'Details' => 'Details',
+    'Archive' => 'Archief',
 ];

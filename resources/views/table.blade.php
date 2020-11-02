@@ -1,8 +1,11 @@
 <table class="table table-hover mb-0">
     <thead>
         <tr>
-            @foreach ($collection->getTableColumns() as $column)
-                <th>{{ $column['title'] }}</th>
+            @foreach ($collection->getTableColumns() as $key => $column)
+                <th data-column="{{ $key }}"
+                    {!! !empty($column['class']) ? (' class="' . htmlspecialchars($column['class'] instanceof Closure ? $column['class'](null) : $column['class']) . '"') : '' !!}>
+                    {{ $column['title'] }}
+                </th>
             @endforeach
             @if(!empty($collection->getRowActions()) || !empty($collection->getTableActions()))
                 <th class="text-right">
@@ -16,7 +19,8 @@
         @forelse($collection as $item)
             <tr data-primary-key="{{ $item->getKey() }}">
                 @foreach($collection->getTableColumns() as $key => $column)
-                    <td>
+                    <td data-column="{{ $key }}"
+                        {!! !empty($column['class']) ? (' class="' . htmlspecialchars($column['class'] instanceof Closure ? $column['class']($item) : $column['class']) . '"') : '' !!}>
                         {!! $formatCell($item, $key, $column) !!}
                     </td>
                 @endforeach
