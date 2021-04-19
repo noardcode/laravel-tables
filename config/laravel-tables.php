@@ -12,5 +12,8 @@ return [
     |
     */
 
-    'component-prefix' => 'noardcode'
+    'component-prefix' => 'noardcode',
+    'css' => [
+        'table' => 'table table-hover mb-0'
+    ]
 ];

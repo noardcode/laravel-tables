@@ -1,4 +1,4 @@
-<table class="table table-hover mb-0">
+<table class="{{ config('laravel-tables.css.table') }}">
     <thead>
         <tr>
             @foreach ($collection->getTableColumns() as $key => $column)
@@ -46,5 +46,7 @@
 </table>
 
 @if(method_exists($collection, 'links'))
-    {{ $collection->links() }}
+    <div class="d-flex justify-content-center">
+        {{ $collection->links() }}
+    </div>
 @endif
