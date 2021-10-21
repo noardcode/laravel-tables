@@ -39,4 +39,12 @@ abstract class Collection extends EloquentCollection
     {
         return null;
     }
+
+    /**
+     * @return array
+     */
+    public function getFilters(): array
+    {
+        return [];
+    }
 }
