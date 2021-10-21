@@ -89,7 +89,7 @@ class Table extends Component
                     ))
                     ->with('value', $value);
             case ('date'):
-                return $value->format(!empty($this->columns[$key]['date_format']) ?
+                return optional($value)->format(!empty($this->columns[$key]['date_format']) ?
                     $this->columns[$key]['date_format'] : 'd-m-Y H:i');
             case ('boolean'):
                 return view('noardcode::cell.boolean')
