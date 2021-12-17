@@ -1,0 +1,36 @@
+{
+    "name": "@noardcode/laravel-tables",
+    "version": "0.0.1",
+    "description": "NoardCode Laravel Tables",
+    "main": "resources/js/app.js",
+    "sass": "resources/sass/tables.scss",
+    "directories": {
+        "test": "tests"
+    },
+    "devDependencies": {
+
+    },
+    "dependencies": {
+        "bootstrap": "^4.6.0"
+    },
+    "browserslist": [
+        "defaults",
+        "not IE 11",
+        "not IE_Mob 11",
+        "maintained node versions"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:noardcode/laravel-tables.git"
+    },
+    "keywords": [
+        "Tables",
+        "Laravel",
+        "NoardCode"
+    ],
+    "author": "Jesse Alkema",
+    "license": "ISC"
+}

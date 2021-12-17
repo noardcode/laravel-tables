@@ -1,6 +1,12 @@
 <table class="{{ config('laravel-tables.css.table') }}">
     <thead>
         <tr>
+            @if($collection->isSelectable() === true)
+                <th>
+                    <input type="checkbox" class="all-row-select">
+                </th>
+            @endif
+
             @foreach ($collection->getTableColumns() as $key => $column)
                 <th data-column="{{ $key }}"
                     {!! !empty($column['class']) ? (' class="' . htmlspecialchars($column['class'] instanceof Closure ? $column['class'](null) : $column['class']) . '"') : '' !!}>
@@ -23,6 +29,14 @@
     <tbody>
         @forelse($collection as $item)
             <tr data-primary-key="{{ $item->getKey() }}">
+
+                {{-- Make rows selectable when requested in the collection. --}}
+                @if($collection->isSelectable() === true)
+                    <td class="small-column">
+                        <input type="checkbox" class="row-select" value="{{ $item->getKey() }}" style="margin-top: 7px; float: left;">
+                    </td>
+                @endif
+
                 @foreach($collection->getTableColumns() as $key => $column)
                     <td data-column="{{ $key }}"
                         {!! !empty($column['class']) ? (' class="' . htmlspecialchars($column['class'] instanceof Closure ? $column['class']($item) : $column['class']) . '"') : '' !!}>

@@ -5,6 +5,7 @@ namespace Noardcode\Tables;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Noardcode\Tables\Components\Table;
+use Noardcode\Tables\Components\TableSelect;
 
 /**
  * Class TablesServiceProvider
@@ -37,6 +38,7 @@ class TablesServiceProvider extends ServiceProvider
         $prefix = config('laravel-tables.component-prefix');
 
         Blade::component("{$prefix}-table", Table::class);
+        Blade::component("{$prefix}-table-select", TableSelect::class);
     }
 
     /**

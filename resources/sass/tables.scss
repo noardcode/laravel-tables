@@ -16,3 +16,47 @@
     position: relative;
     flex: 1 1 auto;
 }
+
+/* Smaller font. */
+table.table {
+    font-size: 0.8em;
+}
+
+/* Selected table row. */
+table tr.selected {
+    background-color: #d3f2f2;
+}
+
+/* Makes table column as small as possible. */
+table.table tbody td.small-column {
+    width: 1%;
+    text-wrap: none;
+}
+
+/* Table row actions (not buttons). */
+table tr td a.table-row-action {
+    color: #aaa !important;
+
+    &:hover {
+        color: #888 !important;
+    }
+}
+
+table .badge {
+    border-radius: 10px;
+    font-size: 0.75em;
+    padding: 0.2em 0.8em;
+
+    &.badge-light {
+        background: #FAFAFA !important;
+        border: 1px solid #EAEAEA !important;
+        color: #AAAAAA !important;
+    }
+
+    &.badge-info {
+        background: #c9ecf4 !important;
+        border: 1px solid #5aa3bd !important;
+        color: #0a536d !important;
+    }
+}
+

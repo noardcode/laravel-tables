@@ -190,6 +190,16 @@ class Table extends Component
                         'show'
                     );
                     break;
+                case ('multi'):
+                    $actions[$name] = $this->getRowActions(
+                        $item,
+                        $options,
+                        __('noardcode::laravel-tables.Details'),
+                        null,
+                        'ellipsis-v',
+                        'show'
+                    );
+                    break;
                 default:
                     $actions[$name] = $this->getRowActions($item, $options);
             }
@@ -267,6 +277,15 @@ class Table extends Component
             unset($options['closure']);
         } else {
             $options['enabled'] = true;
+        }
+
+        /** Multi item. */
+        if (isset($options['items'])) {
+            foreach ($options['items'] as &$menuItem) {
+                $menuItem['route'] = !empty($menuItem['route'])
+                    ? route($menuItem['route'], $this->getRouteParams($item))
+                    : null;
+            }
         }
 
         return $options + [
